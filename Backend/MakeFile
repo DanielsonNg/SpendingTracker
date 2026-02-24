@@ -4,3 +4,9 @@ test:
 	@go test -v ./...
 run: build
 	@./bin/Backend
+
+migration:
+	@migrate create -ext sql -dir cmd/migrate/migrations $(filter-out $@, $(MAKECMDGOALS))
+
+migrate-up:
+	@go run cmd/migrate/main.go up	
